@@ -24,7 +24,7 @@ class Hot100::CLI
     while input != "exit" do
       puts "Please enter a command:"
       input = gets.chomp.downcase
-      case input
+      case @input
       when "hot 100"
         display_list
       when /\d/
@@ -34,8 +34,11 @@ class Hot100::CLI
           puts "Not a valid entry, choose a number between 1 and 100"
         end
       when /\d-\d/
-        #here I will split the two values, then if they are both valid and a valid range
-        #that range will be returned to the user.
+        if valid_range?(split_input_to_range(input))
+          display_songs_in_range(split_input_to_range(input))
+        else
+          puts "That number range feels off. Check your numbers and format and try again."
+        end
       when /\Aartist\s.+/
         display_artist_songs
       when /\Asong\s.+/
@@ -67,5 +70,24 @@ class Hot100::CLI
   def more_info
     puts "hello world x2"
   end
+
+  def valid_range?(range)
+    range[0].between?(1,99) && range[1].between?(2,100) && range[0] < range[1]
+  end
+
+  def split_input_to_range(input)
+    input.split("-").map { |num| num.to_i }
+  end
+
+  def display_songs_in_range(range)
+    puts "hello world"  
+  end
+
+
+
+
+
+
+
 
 end
