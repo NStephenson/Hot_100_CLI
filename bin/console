@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "Hot_100_CLI"
+require_relative '../lib/Hot_100_CLI.rb'
+# require "Hot_100_CLI"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.

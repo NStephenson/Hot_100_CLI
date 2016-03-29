@@ -1,2 +1,6 @@
 require_relative "Hot_100_CLI/version.rb"
 require_relative "./Hot_100_CLI/cli.rb"
+require_relative "./Hot_100_CLI/artist.rb"
+require_relative "./Hot_100_CLI/billboard_scraper.rb"
+require_relative "./Hot_100_CLI/chart_status.rb"
+require_relative "./Hot_100_CLI/song.rb"

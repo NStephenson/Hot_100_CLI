@@ -1,20 +1,28 @@
 class Song
 
-  attr_accessor :name, :artists, :rank, :weeks_charted, :peak_position, :previous_week
+  attr_accessor :title, :artists, :chart_status
 
+  @@all = []
 
-  def initialize(song_hash)
-    @name = song_hash[:name]
-    @rank = song_hash[:rank]
-    @weeks_charted = song_hash[:weeks_charted]
-    @peak_position = song_hash[:peak_position]
-    @previous_week = song_hash[:previous_week]
+  def initialize(title)
+    @title = title
+    @artists = []
   end
 
-  
+  def self.create(title)
+    song = Song.new(title)
+    Song.all << song
+    song
+  end
 
 
+  def self.all
+    @@all
+  end
 
+  def save
+    @@all << self
+  end
 
 
 

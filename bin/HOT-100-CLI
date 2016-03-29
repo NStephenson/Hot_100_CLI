@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require '../lib/Hot_100_CLI.rb'
+require_relative '../lib/Hot_100_CLI.rb'
 
 
 Hot100::CLI.new.call

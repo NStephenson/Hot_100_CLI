@@ -1,7 +1,6 @@
 class Hot100::CLI
 
   def call
-
     greeting
     display_list
     puts "You may now choose to view the rest of the list or get more information on any of the songs on the list by typing the appropriate command. For a list of commands, type 'help'."
@@ -24,7 +23,7 @@ class Hot100::CLI
     while input != "exit" do
       puts "Please enter a command:"
       input = gets.chomp.downcase
-      case @input
+      case input
       when "hot 100"
         display_list
       when /\d/

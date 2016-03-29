@@ -2,15 +2,45 @@ class Artist
 
   attr_accessor :name, :songs
 
+  @@all = []
 
   def initialize(name)
     @name = name
+    @songs = []
+
+  end
+
+  def self.all
+    @@all
+  end
+
+  def save
+    @@all << self
+  end
+
+ 
+  def self.create_by_list_name(list_name)
+    artists = []
+    list_name[:name].split(" Featuring ").map do |name|
+      artists << Artist.find_or_new_by_name(name)
+    end
+    artists
+  end
+
+  def self.find_or_new_by_name(name)
+    if self.all.detect{ |song| song.name == name  }
+      artist = self.all.detect{ |song| song.name == name  }
+    else 
+      artist = Artist.new(name)
+      artist.save
+    end
+    artist
   end
 
 
-  def split_features(list_name)
-    list_name.split(" Featuring ")
-  end
+  # create a method that will display the names of an artist 
+  # as X Featuring X when there are multiple artists
+
 
 
 
