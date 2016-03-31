@@ -10,8 +10,6 @@ class ChartStatus
   end
 
 
-  #need to add logic for songs with no previous week to be classified as new
-
   def self.new_songs
     Song.all.select { | song | song.previous_week == "--" }
   end

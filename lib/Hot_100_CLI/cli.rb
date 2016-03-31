@@ -40,9 +40,9 @@ class Hot100::CLI
           puts "That number range feels off. Check your numbers and format and try again."
         end
       when /\Aartist\s.+/
-        display_artist_songs(input)
+        display_artist_songs(input) #make logic for when artist isn't found
       when /\Asong\s.+/
-        more_info(input)
+        more_info(input) #add logic for when song is found
       when "help"
         list_commands
       when "exit"
