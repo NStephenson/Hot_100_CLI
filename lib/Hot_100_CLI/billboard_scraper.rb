@@ -22,7 +22,8 @@ class BillboardScraper
         weeks_charted: entry.css('.chart-row__weeks-on-chart .chart-row__value').text 
       } 
 
-      song_info[:song] = { title: entry.css('.chart-row__song').text }
+      song_info[:song] = { title: entry.css('.chart-row__song').text, 
+                           link: parse_link_if_present(entry) }
 
       song_info[:artist] = { name: entry.css(".chart-row__artist").text.strip }
       create_song_from_scraper(song_info)
@@ -31,12 +32,21 @@ class BillboardScraper
 
 
   def create_song_from_scraper(song_info)
-    song = Song.create(song_info[:song][:title])
+    song = Song.create(song_info[:song])
     Artist.create_by_list_name(song_info[:artist]).each { |artist| song.artists << artist }
     song.chart_status = ChartStatus.new(song_info[:chart_status])
 
     song.chart_status.song = song
     song.artists.each { |artist| artist.songs << song }
+  end
+
+
+  def parse_link_if_present(entry)
+    if !entry.css('.chart-row__player-link').empty?
+      entry.css('.chart-row__player-link').attr('href').text
+    else
+      "error"
+    end
   end
 
 

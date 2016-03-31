@@ -18,6 +18,10 @@ class Artist
     @@all << self
   end
 
+  def self.find_by_name(name)
+    all.detect { |artist| artist.name.downcase == name.downcase }
+  end
+
  
   def self.create_by_list_name(list_name)
     artists = []
@@ -36,6 +40,10 @@ class Artist
     end
     artist
   end
+
+  # def song_names
+  #   songs.map { |song| song.title }
+  # end
 
 
   # create a method that will display the names of an artist 
