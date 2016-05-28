@@ -29,7 +29,7 @@ class Hot100::CLI
         display_songs_in_range("1-100")
       when /\A\d+\z/
          if input.to_i.between?(1,100) ###################### Should be it's own method
-          more_info(input) ################################### need to code this method
+          more_info_song(input) ################################### need to code this method
         else
           puts "Not a valid entry, choose a number between 1 and 100"
         end
@@ -42,7 +42,7 @@ class Hot100::CLI
       when /\Aartist\s.+/
         display_artist_songs(input) #make logic for when artist isn't found
       when /\Asong\s.+/
-        more_info(input) #add logic for when song is found
+        more_info_song(input) #add logic for when song is found
       when "help"
         list_commands
       when "exit"
@@ -80,20 +80,24 @@ class Hot100::CLI
     end
   end
 
-  def more_info(input)
+  def more_info_song(input)
     if !input[/\Asong/]
       song = Song.find_by_rank(input)
     else
       song = Song.find_by_title(input.split("song ")[1])
     end
-    puts ' '
-    puts "     #{song.title}"
-    puts  "          By #{song.artist_listing}"
-    puts ' '
-    puts "This week, #{song.title} was number #{song.rank} on the Billboard Top 100 Charts."
-    puts ' '
-    song_history(song)
-    ask_to_play_song(song)
+    if song
+      puts ' '
+      puts "     #{song.title}"
+      puts  "          By #{song.artist_listing}"
+      puts ' '
+      puts "This week, #{song.title} was number #{song.rank} on the Billboard Top 100 Charts."
+      puts ' '
+      song_history(song)
+      ask_to_play_song(song)
+    else
+      puts "That song doesn't seem to be on the charts this week."
+    end
   end
 
   def valid_range?(range)
@@ -142,7 +146,7 @@ class Hot100::CLI
   end
 
 
-  def song_history(song) #note, need to add logic for a song returning to the top 100
+  def song_history(song) #need to add logic for a song returning to the top 100
     if song.chart_status.is_new?
       puts "This is #{song.title}'s debut week on the Hot 100 charts!"
     else

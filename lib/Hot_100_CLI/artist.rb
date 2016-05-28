@@ -41,16 +41,5 @@ class Artist
     artist
   end
 
-  # def song_names
-  #   songs.map { |song| song.title }
-  # end
-
-
-  # create a method that will display the names of an artist 
-  # as X Featuring X when there are multiple artists
-
-
-
-
 
 end
