@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["NStephenson"]
   spec.email         = ["nickstephenson90@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{This gem allows users to view the Billboard Top 100 in the command line.}
+  spec.description   = %q{This gem scrapes the Billboard Top 100 webpage and displays that information in the command line.}
+  spec.homepage      = "https://github.com/NStephenson/Hot_100_CLI"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -31,6 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
 
-  spec.add_runtime_dependency "nokogiri"
-  spec.add_runtime_dependency "launchy"
+
 end

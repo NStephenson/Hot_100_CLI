@@ -23,7 +23,8 @@ class BillboardScraper
       } 
 
       song_info[:song] = { title: entry.css('.chart-row__song').text, 
-                           link: parse_link_if_present(entry) }
+                           spotify_link: parse_spotify_link_if_present(entry), 
+                           vevo_link: parse_vevo_link_if_present(entry) }
 
       song_info[:artist] = { name: entry.css(".chart-row__artist").text.strip }
       create_song_from_scraper(song_info)
@@ -41,9 +42,17 @@ class BillboardScraper
   end
 
 
-  def parse_link_if_present(entry)
-    if !entry.css('.chart-row__player-link').empty?
-      entry.css('.chart-row__player-link').attr('href').text
+  def parse_spotify_link_if_present(entry)
+    if !entry.css('.js-spotify-play-full').empty?
+      entry.css('.js-spotify-play-full').attr('data-href').text
+    else
+      "error"
+    end
+  end
+
+    def parse_vevo_link_if_present(entry)
+    if !entry.css('.js-chart-row-vevo').empty?
+      entry.css('.js-chart-row-vevo').attr('data-href').text
     else
       "error"
     end

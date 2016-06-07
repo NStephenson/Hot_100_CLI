@@ -26,7 +26,13 @@ class Artist
   def self.create_by_list_name(list_name)
     artists = []
     list_name[:name].split(" Featuring ").map do |name|
-      artists << Artist.find_or_new_by_name(name)
+      if name.include?(" & ")
+        name.split(" & ").map do |name|
+          artists << Artist.find_or_new_by_name(name)
+        end
+      else
+        artists << Artist.find_or_new_by_name(name)
+      end
     end
     artists
   end

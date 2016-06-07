@@ -1,6 +1,7 @@
+require 'pry'
 class Song
 
-  attr_accessor :title, :artists, :link, :chart_status
+  attr_accessor :title, :artists, :spotify_link, :chart_status, :vevo_link
 
   @@all = []
 
@@ -11,7 +12,8 @@ class Song
 
   def self.create(song_hash)
     song = Song.new(song_hash[:title])
-    song.link = song_hash[:link]
+    song.spotify_link = song_hash[:spotify_link]
+    song.vevo_link = song_hash[:vevo_link]
     song.save
     song
   end
@@ -53,7 +55,15 @@ class Song
   end
 
   def artist_listing
-    artists.map { |artist| artist.name }.join(" Featuring ")
+    if artists.length < 3
+      artists.map { |artist| artist.name }.join(" Featuring ")
+    else
+      listing = artists[0].name + " Featuring " + artists[1].name
+      artists.each_with_index do |artist, i|
+        listing += " & " + artist.name if i > 1
+      end
+      listing
+    end
   end
 
 end

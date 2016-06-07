@@ -2,6 +2,8 @@ require 'Launchy'
 class Hot100::CLI
 
   def call
+    puts 'Starting...'
+    puts ' '
     BillboardScraper.new
     greeting
     display_songs_in_range("1-10")
@@ -41,6 +43,8 @@ class Hot100::CLI
         end
       when /\Aartist\s.+/
         display_artist_songs(input) #make logic for when artist isn't found
+      when /\Aartists\z/
+        display_artist_list
       when /\Asong\s.+/
         more_info_song(input) #add logic for when song is found
       when "help"
@@ -124,17 +128,20 @@ class Hot100::CLI
 
 
   def ask_to_play_song(song)
-    puts 'Would you like to listen to this song?'
+    puts ' '
+    puts 'To listen to this song on spotify, type \'listen\'. To watch this song\'s music video, type \'watch\'. Otherwise, type \'exit\'.'
     puts ' '
     input = gets.chomp
-    if input == 'y'|| input == 'yes' || input == 'fuck yeah'
-      launch_song(song)
+    if input == 'listen'
+      launch_spotify_link(song)
+    elsif input == 'watch'
+      launch_vevo_link(song)
     end
   end
 
-  def launch_song(song)
-    if song.link != 'error'
-      Launchy.open(song.link)
+  def launch_spotify_link(song)
+    if song.spotify_link != 'error'
+      Launchy.open(song.spotify_link)
       puts ' '
       puts '♪ ♪ ♪ Enjoy!♪ ♪ ♪' 
       puts ' '
@@ -145,6 +152,18 @@ class Hot100::CLI
     end
   end
 
+  def launch_vevo_link(song)
+    if song.vevo_link != 'error'
+      Launchy.open(song.vevo_link)
+      puts ' '
+      puts '♪ ♪ ♪ Enjoy!♪ ♪ ♪' 
+      puts ' '
+    else
+      puts ' '
+      puts 'Unfortunately, it this song is not on Vevo :('
+      puts ' '
+    end
+  end
 
   def song_history(song) #need to add logic for a song returning to the top 100
     if song.chart_status.is_new?
@@ -156,8 +175,12 @@ class Hot100::CLI
     end
   end
 
+  def display_artist_list
+    Artist.all.each do |artist|
+      puts artist.name
+    end
 
-
+  end
 
 
 
