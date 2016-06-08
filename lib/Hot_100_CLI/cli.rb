@@ -30,23 +30,15 @@ class Hot100::CLI
       when "hot 100"
         display_songs_in_range("1-100")
       when /\A\d+\z/
-         if input.to_i.between?(1,100) ###################### Should be it's own method
-          more_info_song(input) ################################### need to code this method
-        else
-          puts "Not a valid entry, choose a number between 1 and 100"
-        end
+         chart_index_if_valid(input)
       when /\A\d+-\d+\z/
-        if valid_range?(split_input_to_range(input))
-          display_songs_in_range(input)
-        else
-          puts "That number range feels off. Check your numbers and format and try again."
-        end
+        chart_range_if_valid(input)
       when /\Aartist\s.+/
-        display_artist_songs(input) #make logic for when artist isn't found
+        display_artist_songs(input) 
       when /\Aartists\z/
         display_artist_list
       when /\Asong\s.+/
-        more_info_song(input) #add logic for when song is found
+        more_info_song(input) 
       when "help"
         list_commands
       when "exit"
@@ -179,7 +171,22 @@ class Hot100::CLI
     Artist.all.each do |artist|
       puts artist.name
     end
+  end
 
+  def chart_range_if_valid(input)
+    if valid_range?(split_input_to_range(input))
+      display_songs_in_range(input)
+    else
+      puts "That number range feels off. Check your numbers and format and try again."
+    end
+  end
+
+  def chart_index_if_valid(input)
+    if input.to_i.between?(1,100) 
+          more_info_song(input)
+        else
+          puts "Not a valid entry, choose a number between 1 and 100"
+        end
   end
 
 
