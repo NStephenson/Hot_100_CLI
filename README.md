@@ -20,6 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
+To use, type `ruby bin/HOT-100-CLI` in your command line after navigating to the root of this repo.
+
 Upon opening, Hot 100 CLI will display the top ten songs on the chart for the current week. After this, there are a variety of inputs you can give for more information about the list.
 
 "Hot 100" - Displays the full hot 100 listing
