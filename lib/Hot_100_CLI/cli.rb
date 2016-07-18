@@ -1,5 +1,5 @@
 require 'Launchy'
-class Hot100::CLI
+class Hot100CLI::CLI
 
   def call
     puts 'Starting...'

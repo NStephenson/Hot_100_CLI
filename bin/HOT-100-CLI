@@ -3,4 +3,4 @@
 require_relative '../lib/Hot_100_CLI.rb'
 
 
-Hot100::CLI.new.call
+Hot100CLI::CLI.new.call
