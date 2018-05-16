@@ -5,7 +5,7 @@ class BillboardScraper
 
 
   def initialize
-    doc = Nokogiri::HTML(open('http://www.billboard.com/charts/hot-100'))
+    doc = Nokogiri::HTML(open('https://www.billboard.com/charts/hot-100'))
     scrape(doc)
   end
 
