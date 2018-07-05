@@ -31,5 +31,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
 
+  spec.add_dependency "launchy"
+  spec.add_dependency "require_all"
+  spec.add_dependency "nokogiri"
+
 
 end
